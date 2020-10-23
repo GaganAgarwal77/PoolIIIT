@@ -1,6 +1,6 @@
 <h1 align="center">PoolIIIT</h1>
 
-![Django Version](https://img.shields.io/badge/Django-3.0.7-brightgreen) ![Django Rest](https://img.shields.io/badge/Django%20rest%20framework-3.11.0-brightgreen) ![React](https://img.shields.io/badge/React-16.13.1-blue) ![AntD](https://img.shields.io/badge/antD-4.2.4-blue) ![React Spring](https://img.shields.io/badge/React%20Spring-8.0.27-blue)
+![Django Version](https://img.shields.io/badge/Django-3.0.7-brightgreen) ![Django Rest](https://img.shields.io/badge/Django%20rest%20framework-3.11.0-brightgreen) ![React](https://img.shields.io/badge/React-16.13.1-blue) ![AntD](https://img.shields.io/badge/antD-4.2.4-blue) ![React Spring](https://img.shields.io/badge/React%20Spring-8.0.27-blue)  ![React-Bootstrap](https://img.shields.io/badge/React--Bootsrap-1.2.2-blue)
 
 ### Installation
 
