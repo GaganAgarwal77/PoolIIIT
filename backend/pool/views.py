@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets, generics, permissions
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from users.models import CustomUser
 from pool.models import Booking
@@ -42,27 +42,24 @@ class BookingFilteredListAPI(generics.ListAPIView):
         obj = Booking.objects.filter(id=id).first()
         #Converting to datetime object
         try:
-            start = datetime.combine(obj.date, obj.flexibility_before)
-            end = datetime.combine(obj.date, obj.flexibility_after)
+            obj_dt = datetime.combine(obj.date, obj.time)
+
+            start = obj_dt - timedelta(hours=2)
+            end = obj_dt + timedelta(hours=2)
 
             query_list = []
-            for curr_obj in Booking.objects.all().exclude(user=obj.user):
+            for curr_obj in Booking.objects.filter(location=obj.location).exclude(user=obj.user):
 
                 #Converting to datetime object
-                curr_obj_start = datetime.combine(curr_obj.date, curr_obj.flexibility_before)
-                curr_obj_end = datetime.combine(curr_obj.date, curr_obj.flexibility_after)
+                curr_obj_dt = datetime.combine(curr_obj.date, curr_obj.time)
 
-                #Conditions to satisfy overalapping
-                if curr_obj_start >= start and curr_obj_end <= end:
-                    query_list.append(curr_obj)
-                elif curr_obj_start <= end and curr_obj_end >= end:
-                    query_list.append(curr_obj)
-                elif curr_obj_end >= start and curr_obj_start <= start:
+                #Conditions to satisfy overlapping
+                if curr_obj_dt >= start and curr_obj_dt <= end:
                     query_list.append(curr_obj)
 
             return query_list
         except:
-            return 
+            return
 
 class UserBookingListAPI(generics.ListAPIView):
     serializer_class = BookingSerializer

@@ -58,7 +58,7 @@ const Page = (data) => {
               display: 'block !important',
             }}
           >
-            <img alt='user-theme' src={image} />
+            <img alt='user-theme' src={image} style={{width:"100%",height:"auto"}}/>
           </div>
           <div
             style={{
@@ -89,6 +89,11 @@ const Page = (data) => {
             </h3>
             <Button type='primary' style={{ margin: '5px' }}>
               <Link to={'/users/' + username + '/edit'}>Edit Profile</Link>
+            </Button>
+            <Button type='primary' style={{ margin: '5px' }}>
+              <Link to={'/users/' + username + '/reset-password'}>
+                Edit Password
+              </Link>
             </Button>
             <Button type='primary'>
               <Link to={'/booking/' + username}>My Bookings</Link>

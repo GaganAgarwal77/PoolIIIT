@@ -9,7 +9,8 @@ import { getConfig } from '../utils/getConfig';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { CardColumns } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 class Booking extends Component {
   state = {
     bookings: [],
@@ -32,49 +33,63 @@ class Booking extends Component {
           loading: false,
         });
       });
+    // window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+    // };
   }
 
   render() {
     let bookings = null;
     const arr = this.state.bookings;
     bookings = (
-      <div style={{ textAlign: 'center' }}>
-        <h1 style={{ textAlign: 'left', color: 'darkblue' }}>All Bookings</h1>
-        <div className='row'>
+      <div>
+        <CardColumns>
           {arr.map((booking) => {
             return (
-              <div className='column'>
-                <div className='card'>
-                  <h3>
+              <Card border='primary' bg='light' style={{ width: '19rem' }}>
+                <Card.Body>
+                  <Card.Title>
                     <Link to={'/users/' + booking.user}>{booking.user}</Link>
-                  </h3>
-                  <h4 style={{ color: 'darkblue' }}>
+                  </Card.Title>
+                  <Card.Text style={{ color: 'darkblue' }}>
                     <b>Date: </b>
                     {booking.date}
-                  </h4>
-                  <h4 style={{ color: 'darkblue' }}>
+                  </Card.Text>
+                  <Card.Text style={{ color: 'darkblue' }}>
                     <b>Time: </b> {booking.time}
-                  </h4>
-                </div>
-              </div>
+                  </Card.Text>
+                  <Card.Text style={{ color: 'darkblue' }}>
+                    <b>Location: </b> {booking.location}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
             );
           })}
-        </div>
+        </CardColumns>
       </div>
     );
     return (
-      <div className='container'>
+      <div>
         {this.state.loading ? (
           <Loading />
         ) : !this.props.isAuthenticated ? (
           <NotAuthorizedPage />
         ) : (
           <div>
-            <h1 style={{ color: 'red' }}>{this.state.error}</h1>
-            <AddBooking />
-            <div style={{ marginBottom: '15px' }}></div>
-            {console.log(this.state.bookings)}
-            {bookings}
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <h1 style={{ color: 'red' }}>{this.state.error}</h1>
+              <AddBooking />
+              <h1
+                style={{
+                  textAlign: 'center',
+                  color: 'darkblue',
+                  marginTop: '25px',
+                }}
+              >
+                All Bookings
+              </h1>
+            </div>
+            <div className='container'>{bookings}</div>
           </div>
         )}
       </div>
